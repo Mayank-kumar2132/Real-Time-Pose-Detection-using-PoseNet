@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Human Body Detection using PoseNet</title>
+    
+    <!-- Include ml5.js and p5.js -->
+    <script src="https://cdn.jsdelivr.net/npm/ml5@0.6.0/dist/ml5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script>
+    <script src="sketch.js"></script>
+    
+    <!-- CSS for styling -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f8; /* Light blue-grey background */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .header {
+            background-color: #003366; /* Dark blue */
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .main-container {
+            display: flex;
+            flex: 1;
+            padding: 20px;
+            box-sizing: border-box;
+            justify-content: space-between;
+        }
+
+        .camera-box {
+            width: 865px;
+            height: 605px;
+            border: 4px solid #003366;
+            border-radius: 10px;
+            padding: 10px;
+            background-color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .attention-box, .keypoints-box {
+            width: 300px;
+            border: 4px solid #003366;
+            border-radius: 10px;
+            padding: 20px;
+            background-color: #ffffff;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .attention-text {
+            font-size: 20px;
+            color: #333333;
+            margin-bottom: 10px;
+        }
+
+        .attention-text::before {
+            content: "⚠️";
+            font-size: 24px;
+            margin-right: 10px;
+        }
+
+        .keypoints-list {
+            list-style: none;
+            padding: 0;
+            font-size: 16px;
+            color: #003366;
+            text-align: left;
+        }
+
+        #canvas-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        canvas {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 10px;
+        }
+
+        /* Footer text */
+        .footer-text {
+            text-align: center;
+            color: #666666;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        HUMAN BODY DETECTION USING POSENET
+    </div>
+
+    <div class="main-container">
+        <!-- Camera display area -->
+        <div class="camera-box">
+            <div id="canvas-container"></div>
+        </div>
+
+        <!-- Right-side content: Attention box and Keypoints box -->
+        <div>
+            <!-- Attention Box -->
+            <div class="attention-box">
+                <div class="attention-text">
+                    YOUR CAMERA IS ACTIVE
+                </div>
+                <div>
+                    Detecting and Analyzing your body
+                </div>
+            </div>
+
+            <!-- Keypoints Box -->
+            <div class="keypoints-box">
+                <h3>Visible Keypoints</h3>
+                <ul id="keypoints-list" class="keypoints-list">
+                    <!-- Detected keypoints will be listed here -->
+                </ul>
+            </div>
+
+            <!-- Footer -->
+            <div class="footer-text">
+                Powered by PoseNet and ml5.js
+            </div>
+        </div>
+    </div>
+
+    <!-- Script to move the p5.js canvas into the camera-box -->
+    <script>
+        window.addEventListener('load', function(){
+            setTimeout(function(){
+                const canvas = document.querySelector('canvas');
+                const canvasContainer = document.getElementById('canvas-container');
+                if (canvas && canvasContainer){
+                    canvasContainer.appendChild(canvas);
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
